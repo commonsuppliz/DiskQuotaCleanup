@@ -1,2 +1,0 @@
-C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup.Mac\obj\Release\netcoreapp3.1\macbuild\publish\DiskQuotaCleanup.Mac.pdb
-C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup.Mac\obj\Release\netcoreapp3.1\macbuild\publish\DiskQuotaCleanup.Mac
