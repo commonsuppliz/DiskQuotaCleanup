@@ -1,7 +1,7 @@
 # DiskQuotaCleanup is a tiny utility to cleanup unused big folder to reduce disk usage
-This is developed for self-study to learn Eto.Forms library.
+This is developed for self-study to learn Eto.Forms (.Net Open-Souce Cross-Platform) library (<a href="https://github.com/picoe/Eto">https://github.com/picoe/Eto</a>) developed by @cwensley 
 
-This project is beta and under development(not maintained well).
+This project is beta and under development (not maintained well).
 
 DiskQuotaCleanup can run in Windows (Wpf), MacOS, and Linux (cross-platform).
 
@@ -12,4 +12,9 @@ DiskQuotaCleanup can
 3) Remove selected folder.
 
 <img src="DiskQuotaCleanup.png">
+
+Technologies Used:
+- .Net Core
+- ETO Forms
+- ClosedXML
 
