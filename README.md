@@ -13,6 +13,6 @@ DiskQuotaCleanup can
 4) Export summary to Excel(*.xlsx)
 5) Remove selected folder.
 
-![DiskQuotaCleanup](https://user-images.githubusercontent.com/3890024/102977214-05119e00-4546-11eb-8a5e-915d9f21c56d.png)
+![DiskQuotaCleanup](https://user-images.githubusercontent.com/3890024/102978057-40f93300-4547-11eb-9225-cd50b76caeff.png)
 
 TODO: Create more option to delete files and folders.
