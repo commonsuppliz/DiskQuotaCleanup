@@ -1,0 +1,17 @@
+/mnt/c/Users/hideoyon/source/repos/DiskQuotaCleanup/DiskQuotaCleanup/bin/Release/netstandard2.0/DiskQuotaCleanup.deps.json
+/mnt/c/Users/hideoyon/source/repos/DiskQuotaCleanup/DiskQuotaCleanup/bin/Release/netstandard2.0/DiskQuotaCleanup.dll
+/mnt/c/Users/hideoyon/source/repos/DiskQuotaCleanup/DiskQuotaCleanup/bin/Release/netstandard2.0/DiskQuotaCleanup.pdb
+/mnt/c/Users/hideoyon/source/repos/DiskQuotaCleanup/DiskQuotaCleanup/obj/Release/netstandard2.0/DiskQuotaCleanup.csprojAssemblyReference.cache
+/mnt/c/Users/hideoyon/source/repos/DiskQuotaCleanup/DiskQuotaCleanup/obj/Release/netstandard2.0/DiskQuotaCleanup.csproj.CoreCompileInputs.cache
+/mnt/c/Users/hideoyon/source/repos/DiskQuotaCleanup/DiskQuotaCleanup/obj/Release/netstandard2.0/DiskQuotaCleanup.AssemblyInfoInputs.cache
+/mnt/c/Users/hideoyon/source/repos/DiskQuotaCleanup/DiskQuotaCleanup/obj/Release/netstandard2.0/DiskQuotaCleanup.AssemblyInfo.cs
+/mnt/c/Users/hideoyon/source/repos/DiskQuotaCleanup/DiskQuotaCleanup/obj/Release/netstandard2.0/DiskQuotaCleanup.dll
+/mnt/c/Users/hideoyon/source/repos/DiskQuotaCleanup/DiskQuotaCleanup/obj/Release/netstandard2.0/DiskQuotaCleanup.pdb
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\bin\Release\netstandard2.0\DiskQuotaCleanup.deps.json
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\bin\Release\netstandard2.0\DiskQuotaCleanup.dll
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\bin\Release\netstandard2.0\DiskQuotaCleanup.pdb
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\obj\Release\netstandard2.0\DiskQuotaCleanup.AssemblyInfoInputs.cache
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\obj\Release\netstandard2.0\DiskQuotaCleanup.AssemblyInfo.cs
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\obj\Release\netstandard2.0\DiskQuotaCleanup.csproj.CoreCompileInputs.cache
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\obj\Release\netstandard2.0\DiskQuotaCleanup.dll
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\obj\Release\netstandard2.0\DiskQuotaCleanup.pdb

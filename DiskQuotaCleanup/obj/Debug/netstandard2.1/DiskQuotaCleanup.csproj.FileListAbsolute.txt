@@ -1,0 +1,11 @@
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\obj\Debug\netstandard2.1\DiskQuotaCleanup.csprojAssemblyReference.cache
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\obj\Debug\netstandard2.1\DiskQuotaCleanup.MainForm.Resource.resources
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\obj\Debug\netstandard2.1\DiskQuotaCleanup.csproj.GenerateResource.cache
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\obj\Debug\netstandard2.1\DiskQuotaCleanup.AssemblyInfoInputs.cache
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\obj\Debug\netstandard2.1\DiskQuotaCleanup.AssemblyInfo.cs
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\obj\Debug\netstandard2.1\DiskQuotaCleanup.csproj.CoreCompileInputs.cache
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\bin\Debug\netstandard2.1\DiskQuotaCleanup.deps.json
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\bin\Debug\netstandard2.1\DiskQuotaCleanup.dll
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\bin\Debug\netstandard2.1\DiskQuotaCleanup.pdb
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\obj\Debug\netstandard2.1\DiskQuotaCleanup.dll
+C:\Users\hideoyon\source\repos\DiskQuotaCleanup\DiskQuotaCleanup\obj\Debug\netstandard2.1\DiskQuotaCleanup.pdb
