@@ -60,16 +60,17 @@ namespace DiskQuotaCleanup
 			});
 			_folderView.Columns.Add(new GridColumn
 			{
-				HeaderText = "Date",
+				HeaderText = "LastModifed",
 				DataCell = new TextBoxCell(2),
-				Width = 150
+				Width = 70
 			});
 			_folderView.Columns.Add(new GridColumn
 			{
 				HeaderText = "Depth",
-				DataCell = new TextBoxCell(3),
-				Width=20
+				DataCell = new TextBoxCell(5),
+				Width=30
 			});
+
             _folderView.MouseDown += _folderView_MouseDown;
 			_folderViewContextMenu = new ContextMenu();
 			ButtonMenuItem _buttonViewSubFoldersPropertiesForFoldeList = new ButtonMenuItem();
@@ -88,7 +89,7 @@ namespace DiskQuotaCleanup
 			{
 				HeaderText = "Path\u2193",
 				DataCell = new TextBoxCell(0),
-				Width = 200,
+				Width = 400,
 				Sortable = true
 
 			}); ;
@@ -98,7 +99,37 @@ namespace DiskQuotaCleanup
 				DataCell = new TextBoxCell(1),
 				Width = 50,
 				Sortable = true
-			}); ;
+			});
+
+
+			_grid.Columns.Add(new GridColumn
+			{
+				HeaderText = "LastModified",
+				DataCell = new TextBoxCell(2),
+				Width = 70,
+				Sortable = false
+			});
+			_grid.Columns.Add(new GridColumn
+			{
+				HeaderText = "CreationTime",
+				DataCell = new TextBoxCell(3),
+				Width = 70,
+				Sortable = false
+			});
+			_grid.Columns.Add(new GridColumn
+			{
+				HeaderText = "LastAccess",
+				DataCell = new TextBoxCell(4),
+				Width = 70,
+				Sortable = false
+			});
+			_grid.Columns.Add(new GridColumn
+			{
+				HeaderText = "FolderDepth",
+				DataCell = new TextBoxCell(5),
+				Width = 10,
+				Sortable = false
+			});
 			this._gridContextMenu = new ContextMenu();
 			ButtonMenuItem _buttonViewNode = new ButtonMenuItem();
 			_buttonViewNode.Text = "View in Node";
@@ -539,8 +570,7 @@ namespace DiskQuotaCleanup
 			{
                 if (System.IO.Directory.Exists(fDalog.Directory) == true)
                 {
-					//this._rightTopPanel.RemoveAll();
-					//this._rightTopPanel.Invalidate();
+
                     _currentFolder = fDalog.Directory;
                     fDalog.Dispose();
                     fDalog = null;
@@ -563,28 +593,25 @@ namespace DiskQuotaCleanup
 
 
                     DirectoryInfo rootDir = new DirectoryInfo(_currentFolder);
-                    FolderNode rootDirInfo = new FolderNode(_currentFolder, 0, rootDir.LastWriteTime, 0);
+                    FolderNode rootDirInfo = new FolderNode(_currentFolder, 0, rootDir.LastWriteTime, rootDir.CreationTime, rootDir.LastAccessTime , 0);
                     _treeFolderNodeList.Add(rootDirInfo);
                     System.Diagnostics.Debug.WriteLine($"Task Started :{System.Threading.Thread.CurrentThread.ManagedThreadId.ToString()}");
                     long result = await Task<long>.Run(() => AnalayzeDirectory(_currentFolder, rootDir, rootDirInfo, depth));
                     System.Diagnostics.Debug.WriteLine($"Task Completed :{System.Threading.Thread.CurrentThread.ManagedThreadId.ToString()}");
                     this._rootFolderSize = result;
-					/*
-					ThreadStart st = new ThreadStart(performDisplayDiskUsage);
-					Thread thread = new Thread(st);
-					thread.ApartmentState = ApartmentState.STA;
-					thread.Start();
-					*/
+
 					performDisplayDiskUsage();
 					this._isFormProgressVisibile = false;
                     this._folderView.SuspendLayout();
                     this._folderView.DataStore = new TreeGridItemCollection(_treeFolderNodeList);
                     this._folderView.ResumeLayout();
 					this._grid.SuspendLayout();
+	                // Sort By Folder Size at Begining
+					_dirList.Sort(new MySortBySizeSorter());
+
 					this._grid.DataStore = _dirList;
 					this._grid.ResumeLayout();
 					this.menuExportExcel.Enabled = true;
-					//this._timerUI.Stop();
 
 
 				}
@@ -605,7 +632,7 @@ namespace DiskQuotaCleanup
         {
 			System.Diagnostics.Debug.WriteLine($"Task Completed :{System.Threading.Thread.CurrentThread.ToString()}");
 			long rootSize = this._lookupTask.Result;
-			//rootDirInfo.Size = rootSize;
+
 			this._folderView.SuspendLayout();
 			this._folderView.DataStore = new TreeGridItemCollection(_treeFolderNodeList);
 			this._folderView.ResumeLayout();
@@ -640,13 +667,13 @@ namespace DiskQuotaCleanup
             {
 
             }
-			//parentDir.Size = dirSize;
+
 			try
 			{
 				foreach (var d in dirInfo.GetDirectories())
 				{
 
-					FolderNode _childFolder = new FolderNode(d.FullName,  0 , d.LastWriteTime , depth);
+					FolderNode _childFolder = new FolderNode(d.FullName,  0 , d.LastWriteTime, d.CreationTime, d.LastAccessTime  , depth);
 					long childFolderSize = AnalayzeDirectory(d.FullName, new DirectoryInfo(d.FullName), _childFolder , depth);
 					_childFolder.Size = childFolderSize;
 					dirSize += childFolderSize;
@@ -657,8 +684,7 @@ namespace DiskQuotaCleanup
 
 				}
 			} catch  { };
-			//_dirList.Add(new FolderNode(dirInfo.FullName, dirSize, depth));
-			//System.Diagnostics.Debug.WriteLine($"Dir : {dirInfo.FullName} Size : {dirSize} Depth : {depth}");
+
 
 			return dirSize;
         }
@@ -675,10 +701,7 @@ namespace DiskQuotaCleanup
 			System.Diagnostics.Debug.WriteLine("Invoked :" + System.Threading.Thread.CurrentThread.ManagedThreadId.ToString());
 			List<FolderNode> _cloneList = new List<FolderNode>(_dirList);
 			this._rightTopPanel.TotalSize = this._rootFolderSize;
-			this._rightTopPanel.DisplayBigFolders(_cloneList);
-
-			//Eto.Forms.Application.Instance.AsyncInvoke(new Action(() => this._rightTopPanel.DisplayBigFolders(_cloneList)));
-			//Eto.Forms.Application.Instance.Invoke(() => { this._rightTopPanel.DisplayBigFolders(_cloneList); });
+			//this._rightTopPanel.DisplayBigFolders(_cloneList);
 			Eto.Forms.Application.Instance.AsyncInvoke(() => { this._rightTopPanel.DisplayBigFolders(_cloneList); });
 		}
 		private void CmdExportExcel_Executed(object sender, EventArgs e)
@@ -694,9 +717,9 @@ namespace DiskQuotaCleanup
 				// ============================================================
 				// Export Section
 				// ============================================================
-				// Excelファイルを作る
+
 				using (var workbook = new XLWorkbook())
-				// ワークシートを追加する
+
 				{
 					var worksheet = workbook.Worksheets.Add(strSheetName);
 					string strFolderName = null;

@@ -42,15 +42,18 @@ namespace DiskQuotaCleanup
 		public DateTime LastModified;
 		public int Depth = 0;
 		//public object[] Fields = null;
+		public DateTime CreatedTime;
+		public DateTime LastAccessed;
 
-		public FolderNode(string _dirPath, long _dirSize, DateTime _lastModified, int dirDepth)
+		public FolderNode(string _dirPath, long _dirSize, DateTime _lastModified, DateTime _creationTime, DateTime _lastAccessed, int dirDepth)
 		{
 			this.FullPath = _dirPath;
 			this.Size = _dirSize;
 			this.LastModified = _lastModified;
 			this.Depth = dirDepth;
+			this.LastAccessed = _lastAccessed;
+			this.CreatedTime = _creationTime;
 
-			//this.Values = new  object[] { this.FullPath, this.Size, this.Depth };
 
 		}
 		public override string ToString()
@@ -96,6 +99,10 @@ namespace DiskQuotaCleanup
 				case 2:
 					return this.LastModified.ToShortDateString();
 				case 3:
+					return this.CreatedTime.ToShortDateString();
+				case 4:
+					return this.LastAccessed.ToShortDateString();
+				case 5:
 					return this.Depth;
 				default:
 					return null;

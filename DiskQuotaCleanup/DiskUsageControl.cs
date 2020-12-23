@@ -29,17 +29,19 @@ namespace DiskQuotaCleanup
             //this.Orientation = Orientation.Vertical;
             this._topGroupBox = new GroupBox();
             this._topGroupBox.Size = new Size(300, 100);
-            this._topGroupBox.Text = "Disk Quota";
+            this._topGroupBox.Text = "Data Size Summary Graph for Selected Folder";
             this._drawablePanel = new Drawable();
             ///this._drawablePanel.
             this._drawablePanel.BackgroundColor = Colors.White;
             this._drawablePanel.Paint += _drawablePanel_Paint;
             this._drawablePanel.SizeChanged += _drawablePanel_SizeChanged;
             this._drawablePanel.Size = this._topGroupBox.Size;
+            
+            
             this._topGroupBox.Content = this._drawablePanel;
             this._bottomGrroupBox = new GroupBox();
             this._bottomGrroupBox.Size = new Size(300, 100);
-            this._bottomGrroupBox.Text = "Directory Information";
+            this._bottomGrroupBox.Text = "Sub-Directory Size Summary Graph";
             this._splitter = new Splitter();
             this._splitter.Orientation = Orientation.Vertical;
             this._splitter.Position = 100;
@@ -49,6 +51,14 @@ namespace DiskQuotaCleanup
 
             
 
+
+        }
+
+        private void _drawablePanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            var x = e.Location.X;
+            var y = e.Location.Y;
+            MessageBox.Show("Sender" + sender.ToString() + "X: " + x.ToString() + " Y:" + y);
 
         }
 
@@ -132,28 +142,17 @@ namespace DiskQuotaCleanup
             for (var i =0; i  < test; i ++)
             {
                 FolderNode eNode = _clonedList[i];
-                System.Diagnostics.Debug.WriteLine(eNode.ToString()) ;
-
+           
                 double _radtio = (double)eNode.Size / (double)TotalSize;
                 
-                /*
-                double buttonWidthDouble = _radtio * this.ClientSize.Width;
-                int buttonWidthInt = (int)buttonWidthDouble;
-                if(buttonWidthInt < 1)
-                {
-                    buttonWidthInt = 1;
-                }
-                newButton.Size = new Size(buttonWidthInt, this.ClientSize.Height - 20);
-                */
-                //newButton.Size = GetAdjustedControlSize(eNode, this._drawablePanel.ClientSize);
-                //int buttonWidthInt = newButton.Width;
                 Random randomColor = new Random();
           
-                var enodeEx = new FolderNodeEx(eNode.FullPath, eNode.Size, eNode.LastModified, eNode.Depth);
+                var enodeEx = new FolderNodeEx(eNode.FullPath, eNode.Size, eNode.LastModified, eNode.CreatedTime, eNode.LastAccessed , eNode.Depth);
                 enodeEx.FullPath = GetName(eNode);
                 enodeEx.size = GetAdjustedControlSize(eNode, this._drawablePanel.ClientSize);
                 enodeEx.color = MainForm.GlobalColorList[randomColor.Next(0, colorCount - 1)];
                 enodeEx.Locatioon = new Point(CurrentButtonPos, 5);
+                enodeEx.rect = new Rectangle(enodeEx.Locatioon, enodeEx.size);
                 int buttonWidthInt = enodeEx.size.Width;
                 this._topNodeList.Add(enodeEx);
                 
@@ -162,14 +161,15 @@ namespace DiskQuotaCleanup
             if(CurrentButtonPos < this._drawablePanel.ClientSize.Width - 20)
             {
  
-                var enodeEx = new FolderNodeEx("Others", 0, DateTime.Today, 0);
+                var enodeEx = new FolderNodeEx("Others", 0, DateTime.Today, DateTime.Today, DateTime.Today, 0);
                 enodeEx.size = new Size(this._drawablePanel.Width - CurrentButtonPos - 20, this._drawablePanel.Height - 20);
                 enodeEx.color = Colors.DimGray;
                 enodeEx.Locatioon = new Point(CurrentButtonPos, 5);
+                enodeEx.rect = new Rectangle(enodeEx.Locatioon, enodeEx.size);
                 enodeEx.isOthers = true;
                 this._topNodeList.Add(enodeEx);
             }
-            // this._topGroupPanel.EndHorizontal();
+
             this._drawablePanel.ResumeLayout();
             this._drawablePanel.Invalidate();
 
@@ -199,19 +199,17 @@ namespace DiskQuotaCleanup
             }
             return "";
         }
-        private void NewButton_Click(object sender, EventArgs e)
-        {
-            Button btn = sender as Button;
-            MessageBox.Show(btn.Tag.ToString());
-        }
+        
+
     }
     public class FolderNodeEx : FolderNode
     {
         public Color color { get; set; }
         public Point Locatioon { get; set; }
         public Size size { get; set; }
+        public Rectangle rect {get;set;}
         public bool isOthers { get; set; }
-        public FolderNodeEx(string _strpath, long _size, DateTime dt, int depth) : base(_strpath, _size, dt, depth)
+        public FolderNodeEx(string _strpath, long _size, DateTime dt, DateTime creationTime, DateTime lastAccess, int depth) : base(_strpath, _size, dt, creationTime , lastAccess , depth)
         {
         }
             
