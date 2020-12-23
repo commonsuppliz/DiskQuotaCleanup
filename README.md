@@ -3,7 +3,7 @@ This is developed for self-study to learn Eto.Forms library.
 
 This project is beta and under development(not maintained well).
 
-I will run in Windows (Wpf), MacOS, and Linux (cross-platform).
+DiskQuotaCleanup can run in Windows (Wpf), MacOS, and Linux (cross-platform).
 
 DiskQuotaCleanup can
 1) Summarize the disk usage for selected folder.
