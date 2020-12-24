@@ -10,7 +10,7 @@ namespace DiskQuotaCleanup
         private ProgressBar _progressBar = null;
         public frmProgress()
         {
-            this.ClientSize = new Eto.Drawing.Size(150, 40);
+            this.ClientSize = new Eto.Drawing.Size(300, 30);
             this.Title = "Wait...";
             
             this._progressBar = new ProgressBar();

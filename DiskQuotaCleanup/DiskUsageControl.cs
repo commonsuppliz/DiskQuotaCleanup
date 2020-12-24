@@ -41,7 +41,7 @@ namespace DiskQuotaCleanup
             this._topGroupBox.Content = this._drawablePanel;
             this._bottomGrroupBox = new GroupBox();
             this._bottomGrroupBox.Size = new Size(300, 100);
-            this._bottomGrroupBox.Text = "Sub-Directory Size Summary Graph";
+            this._bottomGrroupBox.Text = "Sub-Directory Info";
             this._splitter = new Splitter();
             this._splitter.Orientation = Orientation.Vertical;
             this._splitter.Position = 100;

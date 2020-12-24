@@ -699,9 +699,16 @@ namespace DiskQuotaCleanup
 		private void performDisplayDiskUsage()
 		{
 			System.Diagnostics.Debug.WriteLine("Invoked :" + System.Threading.Thread.CurrentThread.ManagedThreadId.ToString());
-			List<FolderNode> _cloneList = new List<FolderNode>(_dirList);
+			List<FolderNode> _cloneList = new List<FolderNode>();
+			foreach (var n in _dirList)
+			{
+				if (n.Depth == 1)
+				{
+					_cloneList.Add(n);
+				}
+			}
 			this._rightTopPanel.TotalSize = this._rootFolderSize;
-			//this._rightTopPanel.DisplayBigFolders(_cloneList);
+
 			Eto.Forms.Application.Instance.AsyncInvoke(() => { this._rightTopPanel.DisplayBigFolders(_cloneList); });
 		}
 		private void CmdExportExcel_Executed(object sender, EventArgs e)

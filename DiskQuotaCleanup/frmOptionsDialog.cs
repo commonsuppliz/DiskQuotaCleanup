@@ -23,7 +23,7 @@ namespace DiskQuotaCleanup
         /// Remove Fiel Options
         /// </summary>
         private TabPage _tabRemoveOptions = null;
-        private PixelLayout _tabRemoveOptionsPanel = null;
+
         public frmOptionsDialog()
         {
             this.ClientSize = new Size(300, 300);
