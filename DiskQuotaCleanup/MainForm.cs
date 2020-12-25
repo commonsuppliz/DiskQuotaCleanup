@@ -711,14 +711,29 @@ namespace DiskQuotaCleanup
 
 			Eto.Forms.Application.Instance.AsyncInvoke(() => { this._rightTopPanel.DisplayBigFolders(_cloneList); });
 		}
+		/// <summary>
+		/// Export to *.xlsx file using OpenXML
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void CmdExportExcel_Executed(object sender, EventArgs e)
 		{
 			int rowPos = 2;
 			try
 			{
+				var saveDialog = new SaveFileDialog { Directory = new Uri(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) };
+				saveDialog.Filters.Add(new FileDialogFilter("Microsoftot Excel workbook (*.xlsx)", "*.xlsx"));
+				saveDialog.Title = "Select file name to save *.xlsx";
 				var lastPos = _currentFolder.LastIndexOf(System.IO.Path.DirectorySeparatorChar) + 1;
 				string strSheetName = _currentFolder.Substring(lastPos);
-				string filePath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), string.Format("{0}-{1:yyyyMMddHHmmss}.xlsx", strSheetName, DateTime.Now));
+				saveDialog.FileName = strSheetName + ".xlsx";
+				if (saveDialog.ShowDialog(this) != DialogResult.Ok)
+                {
+					return;
+                }
+				
+
+				string filePath = saveDialog.FileName;
 
 	
 				// ============================================================
@@ -749,7 +764,7 @@ namespace DiskQuotaCleanup
 				}
 
 				// ====================================================================
-				MessageBox.Show("Data is saved to  " + filePath);
+				System.Diagnostics.Debug.WriteLine("Data is saved to  " + filePath);
 			}
 			catch (Exception ex)
 			{
