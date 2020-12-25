@@ -40,11 +40,11 @@ namespace DiskQuotaCleanup
 		public MainForm()
 		{
 			Title = "DiskQuotaCleanUp (Eto.Forms)";
+			
 			ClientSize = new Size(1000, 600);
 			_folderView = new TreeGridView();
-			//_folderView.Size = new Size(200, this.Height);
-			//_folderView.BackgroundColor = Colors.LightGrey;
-			
+
+
 			_folderView.AllowMultipleSelection = true;
 			_folderView.Columns.Add(new GridColumn
 			{

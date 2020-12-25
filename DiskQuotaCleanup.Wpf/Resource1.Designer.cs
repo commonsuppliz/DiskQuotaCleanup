@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DiskQuotaCleanup {
+namespace DiskQuotaCleanup.Wpf {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace DiskQuotaCleanup {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class MainForm_Resource {
+    internal class Resource1 {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MainForm_Resource() {
+        internal Resource1() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace DiskQuotaCleanup {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DiskQuotaCleanup.MainForm.Resource", typeof(MainForm_Resource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DiskQuotaCleanup.Wpf.Resource1", typeof(Resource1).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,39 +61,12 @@ namespace DiskQuotaCleanup {
         }
         
         /// <summary>
-        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        ///   (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
         /// </summary>
-        internal static byte[] folder_tools {
+        internal static System.Drawing.Icon folder_tools {
             get {
                 object obj = ResourceManager.GetObject("folder_tools", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAFQSURBVEhL7VYxSkNREExhL3gAG08gaKVoFfAEtnZaSIQgWCWNRUBJb6OCWNpY2FpYeQLvoljowGzWdZ9vNzyIpMgwxe7smx1+3idJZ7XfnSkXASmnClju7Vw+XH0ZuAMB/whY6e0O7seyqQJnCfgTcHJ9Lu4pcHY7Crg53Ne1jQEpdG1jgLrAsrXKvAak0LXVgPfPj7uXR9aY4tViTagLLFurVAO2RwcQUSCJhYW6OHKtVaKPCCIeglORJsADKcsWoAuMAnCaI+kN1k73lGUL6NrkkjmSxkBdnLrWKlHA0vEWR9IbqItT11oluQPeMCjSBNClqoAusBrQOVyHiOLi6YaFhbo4cq1V6gFHGxBZo9DXg1AXz7jWKs [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string imgExcel {
-            get {
-                return ResourceManager.GetString("imgExcel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAYGBgYHBgcICAcKCwoLCg8ODAwODxYQERAREBYiFRkVFRkVIh4kHhweJB42KiYmKjY+NDI0PkxERExfWl98fKcBBgYGBgcGBwgIBwoLCgsKDw4MDA4PFhAREBEQFiIVGRUVGRUiHiQeHB4kHjYqJiYqNj40MjQ+TERETF9aX3x8p//CABEIASwBLAMBIQACEQEDEQH/xAAdAAEAAQUBAQEAAAAAAAAAAAAABgEDBAUIAgcJ/9oACAEBAAAAAOqaRPP31iM7/O1OolqNY8tpE8/fWIzv87U6iWo1jy2kTz99YjKWUjmXucfR7bO1evkXrQWpJSOZe5x9Hts7V6+RetBaklI5l7nH0bHyJKiW322DoJNf0OBLKxLIkqJbfbYOgk1/Q4EsrEsiSolt9s0NzdWNRl7PAwNnl6nH3fvQ3N1Y1GXs8DA2eXqcfd+9Dc3VjUZezKRPP [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string imgOpenFolder {
-            get {
-                return ResourceManager.GetString("imgOpenFolder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA44AAAOOBAMAAAC92VGnAAAAG1BMVEUAAADm5ub////09PQnJydPT095eXmhoaHGxsYN+W3DAAAgAElEQVR42uydyXfavBbAtbDhLR9WW9gCXwtbWV8SluQ8hixJAkmWZM4yCZmWSQhN/+xnm6FMnq5kR9hX5/T06NS+FfpZV7qDJFIal2JuXLC6mVWCnYAcsYocsYocsYockSNWkSNWkSNWkSNyxCpyxCpyxCpyRI7YJ5vOcVIxJv+I1c2sIkfkiFXkiFXkiFXkiByxihyxihyxihyRI1aRI1aRI1aRI3LEPtl4jhi8wzgyVpEjVpEjVpEjcsQqcsQqcsQqckSOWEWOWEWOWEWOyBH7BDliVQWOGLzDOHJ0VYpokpEPwBmS2nyOlcb1G+dIatM5fiNa0yLJkNRmc3wgxCJ5kzOR1EZz7BO7NHrXBpLafI72mHwxkNTGcix2CJmRvDGQ1I [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string imgOptions {
-            get {
-                return ResourceManager.GetString("imgOptions", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }

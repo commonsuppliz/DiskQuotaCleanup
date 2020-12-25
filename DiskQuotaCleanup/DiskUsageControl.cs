@@ -56,9 +56,7 @@ namespace DiskQuotaCleanup
 
         private void _drawablePanel_MouseDown(object sender, MouseEventArgs e)
         {
-            var x = e.Location.X;
-            var y = e.Location.Y;
-            MessageBox.Show("Sender" + sender.ToString() + "X: " + x.ToString() + " Y:" + y);
+
 
         }
 

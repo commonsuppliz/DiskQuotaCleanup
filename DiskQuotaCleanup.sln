@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiskQuotaCleanup", "DiskQuotaCleanup.csproj", "{FFD9A288-3B30-4DCD-87D6-41E9C93CC345}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiskQuotaCleanup", "DiskQuotaCleanup\DiskQuotaCleanup.csproj", "{FFD9A288-3B30-4DCD-87D6-41E9C93CC345}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiskQuotaCleanup.Wpf", "..\DiskQuotaCleanup.Wpf\DiskQuotaCleanup.Wpf.csproj", "{519F21E9-E474-43E6-B028-B12A408BCC9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiskQuotaCleanup.Wpf", "DiskQuotaCleanup.Wpf\DiskQuotaCleanup.Wpf.csproj", "{519F21E9-E474-43E6-B028-B12A408BCC9D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiskQuotaCleanup.Mac", "..\DiskQuotaCleanup.Mac\DiskQuotaCleanup.Mac.csproj", "{4C1065D8-9EF2-4ADE-86F9-2228B1AF71A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiskQuotaCleanup.Mac", "DiskQuotaCleanup.Mac\DiskQuotaCleanup.Mac.csproj", "{4C1065D8-9EF2-4ADE-86F9-2228B1AF71A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiskQuotaCleanup.Gtk", "..\DiskQuotaCleanup.Gtk\DiskQuotaCleanup.Gtk.csproj", "{71820D4C-178A-4BD9-93B4-1DB672CF2E3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiskQuotaCleanup.Gtk", "DiskQuotaCleanup.Gtk\DiskQuotaCleanup.Gtk.csproj", "{71820D4C-178A-4BD9-93B4-1DB672CF2E3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
