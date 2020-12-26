@@ -36,6 +36,10 @@ namespace DiskQuotaCleanup
 		private Task<long> _lookupTask = null;
 		private long _rootFolderSize = 0;
 		private Command menuExportExcel = null;
+		/// <summary>
+		/// Files count has been checked size
+		/// </summary>
+		public static long LookedFileCount;
 
 		public MainForm()
 		{
@@ -225,6 +229,7 @@ namespace DiskQuotaCleanup
 			menuExportExcel.Enabled = false;
 
 
+
 			var quitCommand = new Command { MenuText = "Quit", Shortcut = Application.Instance.CommonModifier | Keys.Q };
 			quitCommand.Executed += (sender, e) => Application.Instance.Quit();
 
@@ -247,8 +252,13 @@ namespace DiskQuotaCleanup
 			};
 
 			// create toolbar			
-			
+#if DEBUG
+			var cmdTest = new Command { MenuText = "Test", ToolBarText = "Testl" };
+            cmdTest.Executed += CmdTest_Executed;
+			ToolBar = new ToolBar { Items = { cmdSelectFolder, new SeparatorToolItem(), cmdOpenOptionDialog, new SeparatorToolItem(), menuExportExcel, new SeparatorToolItem(), cmdTest, new SeparatorToolItem() } };
+#else
 			ToolBar = new ToolBar { Items = { cmdSelectFolder, new SeparatorToolItem(), cmdOpenOptionDialog, new SeparatorToolItem(), menuExportExcel, new SeparatorToolItem() } };
+#endif
 			this._frmProgress = new frmProgress();
 			this._frmProgress.Visible = false;
 			this._frmProgress.ShowInTaskbar = false;
@@ -286,8 +296,24 @@ namespace DiskQuotaCleanup
 
 			}
 		}
+		/// <summary>
+		/// Test Functions
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+        private void CmdTest_Executed(object sender, EventArgs e)
+        {
+			var mouseevent = MouseEventArgs.Empty;
 
-		private void _buttonDeleteFolder_Click(object sender, EventArgs e)
+			var node = this._folderView.SelectedItem;
+			if(node != null)
+            {
+				node.Expanded = true;
+            }
+			
+        }
+
+        private void _buttonDeleteFolder_Click(object sender, EventArgs e)
         {
 			try
 			{
@@ -554,8 +580,12 @@ namespace DiskQuotaCleanup
 				System.Diagnostics.Debug.WriteLine($"Screeen Mouse Position : {this._folderView.SelectedItem}");
 			}
         }
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+        }
 
-		private async void CmdSelectFolder_Executed(object sender, EventArgs e)
+        private async void CmdSelectFolder_Executed(object sender, EventArgs e)
 		{
 #if DEBUG
 			if (sender is Command)
@@ -590,10 +620,12 @@ namespace DiskQuotaCleanup
 					this._frmProgress.StartTimer();
 					this._isFormProgressVisibile = true;
 					this._timerUI.Start();
-
-
+				    // Reset Counter
+					LookedFileCount = 0;
                     DirectoryInfo rootDir = new DirectoryInfo(_currentFolder);
                     FolderNode rootDirInfo = new FolderNode(_currentFolder, 0, rootDir.LastWriteTime, rootDir.CreationTime, rootDir.LastAccessTime , 0);
+					// Expand Only First Node
+					rootDirInfo.Expanded = true;
                     _treeFolderNodeList.Add(rootDirInfo);
                     System.Diagnostics.Debug.WriteLine($"Task Started :{System.Threading.Thread.CurrentThread.ManagedThreadId.ToString()}");
                     long result = await Task<long>.Run(() => AnalayzeDirectory(_currentFolder, rootDir, rootDirInfo, depth));
@@ -656,7 +688,7 @@ namespace DiskQuotaCleanup
 						System.IO.FileInfo newFileInfo = new FileInfo(f.FullName);
 						newFileInfo.Refresh();
 						dirSize += newFileInfo.Length;
-
+						LookedFileCount++;
 					}
 					catch 
 					{
@@ -722,7 +754,7 @@ namespace DiskQuotaCleanup
 			try
 			{
 				var saveDialog = new SaveFileDialog { Directory = new Uri(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) };
-				saveDialog.Filters.Add(new FileDialogFilter("Microsoftot Excel workbook (*.xlsx)", "*.xlsx"));
+				saveDialog.Filters.Add(new FileFilter("Microsoftot Excel workbook (*.xlsx)", "*.xlsx"));
 				saveDialog.Title = "Select file name to save *.xlsx";
 				var lastPos = _currentFolder.LastIndexOf(System.IO.Path.DirectorySeparatorChar) + 1;
 				string strSheetName = _currentFolder.Substring(lastPos);

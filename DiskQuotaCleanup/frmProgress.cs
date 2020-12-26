@@ -17,10 +17,11 @@ namespace DiskQuotaCleanup
             this._progressBar.Size = new Eto.Drawing.Size(150, 40);
             this._progressBar.MinValue = 0;
             this._progressBar.MaxValue = 10;
-            
+            this.Maximizable = false;
+            this.Minimizable = false;
             this.Content = this._progressBar;
             this._uiTimer = new UITimer();
-            this._uiTimer.Interval = 0.3;
+            this._uiTimer.Interval = 0.1;
             this._uiTimer.Elapsed += _uiTimer_Elapsed;
             this._uiTimer.Stop();
             this.EnabledChanged += FrmProgress_EnabledChanged;
@@ -66,11 +67,13 @@ namespace DiskQuotaCleanup
         }
         private void _uiTimer_Elapsed(object sender, EventArgs e)
         {
+
             if(this._progressBar.Value >= this._progressBar.MaxValue)
             {
                 this._progressBar.Value = 0;
             }
             this._progressBar.Value++;
+            this.Title = string.Format("Count: {0} ...", MainForm.LookedFileCount);
         }
 
     }
