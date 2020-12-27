@@ -1,0 +1,12 @@
+﻿リビルドを開始しました...
+1>------ すべてのリビルド開始: プロジェクト:DiskQuotaCleanup, 構成: Release Any CPU ------
+1>C:\Users\hideoyon\source\repos\commonsuppliz\DiskQuotaCleanup\DiskQuotaCleanup\MainForm.cs(698,21,698,23): warning CS0168: 変数 'ex' は宣言されていますが、使用されていません
+1>DiskQuotaCleanup -> C:\Users\hideoyon\source\repos\commonsuppliz\DiskQuotaCleanup\DiskQuotaCleanup\bin\Release\netstandard2.1\DiskQuotaCleanup.dll
+1>プロジェクト "DiskQuotaCleanup.csproj" のビルドが終了しました。
+2>------ すべてのリビルド開始: プロジェクト:DiskQuotaCleanup.Wpf, 構成: Release Any CPU ------
+3>------ すべてのリビルド開始: プロジェクト:DiskQuotaCleanup.Mac, 構成: Release Any CPU ------
+4>------ すべてのリビルド開始: プロジェクト:DiskQuotaCleanup.Gtk, 構成: Release Any CPU ------
+3>DiskQuotaCleanup.Mac -> C:\Users\hideoyon\source\repos\commonsuppliz\DiskQuotaCleanup\DiskQuotaCleanup.Mac\bin\Release\netcoreapp3.1\DiskQuotaCleanup.Mac.dll
+4>DiskQuotaCleanup.Gtk -> C:\Users\hideoyon\source\repos\commonsuppliz\DiskQuotaCleanup\DiskQuotaCleanup.Gtk\bin\Release\netcoreapp3.1\DiskQuotaCleanup.Gtk.dll
+2>DiskQuotaCleanup.Wpf -> C:\Users\hideoyon\source\repos\commonsuppliz\DiskQuotaCleanup\DiskQuotaCleanup.Wpf\bin\Release\netcoreapp3.1\DiskQuotaCleanup.Wpf.dll
+========== すべてリビルド: 4 正常終了、0 失敗、0 スキップ ==========

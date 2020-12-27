@@ -334,10 +334,15 @@ namespace DiskQuotaCleanup
 				}
 				if(string.IsNullOrEmpty(strDir) == false)
                 {
-					var result = MessageBox.Show(string.Format("Remove {0}? \r\n{1}",  strDir, strDirInfo) ,  strDir, MessageBoxButtons.OKCancel, MessageBoxType.Warning, MessageBoxDefaultButton.OK);
+					var result = MessageBox.Show(string.Format("Remove {0}? \r\n\r\n{1}",  strDir, strDirInfo) ,  strDir, MessageBoxButtons.OKCancel, MessageBoxType.Warning, MessageBoxDefaultButton.OK);
 					if(result== DialogResult.Ok)
                     {
 						System.IO.Directory.Delete(strDir, true);
+						//if no exceptions, display dialog to lookup the Analyze the same folder again or not
+						if(MessageBox.Show(String.Format("Analyze the folder again?\r\n\r\n\t{0}", _currentFolder),"Analyze the folder again", MessageBoxButtons.OKCancel,MessageBoxType.Question, MessageBoxDefaultButton.OK) == DialogResult.Ok)
+                        {
+							StartAnalyzeFolder(_currentFolder);
+                        }
                     }
                 }
 
@@ -601,51 +606,7 @@ namespace DiskQuotaCleanup
                 if (System.IO.Directory.Exists(fDalog.Directory) == true)
                 {
 
-                    _currentFolder = fDalog.Directory;
-                    fDalog.Dispose();
-                    fDalog = null;
-                    _dirList.Clear();
-                    this.Invalidate();
-
-
-                    int depth = 0;
-                    _treeFolderNodeList.Clear();
-					if(this._timerUI.Started == true)
-                    {
-						this._timerUI.Stop();
-                    }
-					this._frmProgress.Topmost = true;
-					this._frmProgress.Enabled = true;
-					this._frmProgress.Show();
-					this._frmProgress.StartTimer();
-					this._isFormProgressVisibile = true;
-					this._timerUI.Start();
-				    // Reset Counter
-					LookedFileCount = 0;
-                    DirectoryInfo rootDir = new DirectoryInfo(_currentFolder);
-                    FolderNode rootDirInfo = new FolderNode(_currentFolder, 0, rootDir.LastWriteTime, rootDir.CreationTime, rootDir.LastAccessTime , 0);
-					// Expand Only First Node
-					rootDirInfo.Expanded = true;
-                    _treeFolderNodeList.Add(rootDirInfo);
-                    System.Diagnostics.Debug.WriteLine($"Task Started :{System.Threading.Thread.CurrentThread.ManagedThreadId.ToString()}");
-                    long result = await Task<long>.Run(() => AnalayzeDirectory(_currentFolder, rootDir, rootDirInfo, depth));
-                    System.Diagnostics.Debug.WriteLine($"Task Completed :{System.Threading.Thread.CurrentThread.ManagedThreadId.ToString()}");
-                    this._rootFolderSize = result;
-
-					performDisplayDiskUsage();
-					this._isFormProgressVisibile = false;
-                    this._folderView.SuspendLayout();
-                    this._folderView.DataStore = new TreeGridItemCollection(_treeFolderNodeList);
-                    this._folderView.ResumeLayout();
-					this._grid.SuspendLayout();
-	                // Sort By Folder Size at Begining
-					_dirList.Sort(new MySortBySizeSorter());
-
-					this._grid.DataStore = _dirList;
-					this._grid.ResumeLayout();
-					this.menuExportExcel.Enabled = true;
-
-
+					StartAnalyzeFolder(fDalog.Directory);
 				}
                 else
 				{
@@ -660,6 +621,56 @@ namespace DiskQuotaCleanup
 			}
 		
         }
+		/// <summary>
+		/// Staart Point Function to lookup folder
+		/// </summary>
+		/// <param name="_strFolderPath"></param>
+		private async void StartAnalyzeFolder(string _strFolderPath)
+        {
+			_currentFolder = _strFolderPath;
+			
+			_dirList.Clear();
+			this.Invalidate();
+
+
+			int depth = 0;
+			_treeFolderNodeList.Clear();
+			if (this._timerUI.Started == true)
+			{
+				this._timerUI.Stop();
+			}
+			this._frmProgress.Topmost = true;
+			this._frmProgress.Enabled = true;
+			this._frmProgress.Show();
+			this._frmProgress.StartTimer();
+			this._isFormProgressVisibile = true;
+			this._timerUI.Start();
+			// Reset Counter
+			LookedFileCount = 0;
+			DirectoryInfo rootDir = new DirectoryInfo(_currentFolder);
+			FolderNode rootDirInfo = new FolderNode(_currentFolder, 0, rootDir.LastWriteTime, rootDir.CreationTime, rootDir.LastAccessTime, 0);
+			// Expand Only First Node
+			rootDirInfo.Expanded = true;
+			_treeFolderNodeList.Add(rootDirInfo);
+			System.Diagnostics.Debug.WriteLine($"Task Started :{System.Threading.Thread.CurrentThread.ManagedThreadId.ToString()}");
+			long result = await Task<long>.Run(() => AnalayzeDirectory(_currentFolder, rootDir, rootDirInfo, depth));
+			System.Diagnostics.Debug.WriteLine($"Task Completed :{System.Threading.Thread.CurrentThread.ManagedThreadId.ToString()}");
+			this._rootFolderSize = result;
+
+			performDisplayDiskUsage();
+			this._isFormProgressVisibile = false;
+			this._folderView.SuspendLayout();
+			this._folderView.DataStore = new TreeGridItemCollection(_treeFolderNodeList);
+			this._folderView.ResumeLayout();
+			this._grid.SuspendLayout();
+			// Sort By Folder Size at Begining
+			_dirList.Sort(new MySortBySizeSorter());
+
+			this._grid.DataStore = _dirList;
+			this._grid.ResumeLayout();
+			this.menuExportExcel.Enabled = true;
+
+		}
 		private void LookupDone()
         {
 			System.Diagnostics.Debug.WriteLine($"Task Completed :{System.Threading.Thread.CurrentThread.ToString()}");
