@@ -302,60 +302,56 @@ namespace DiskQuotaCleanup
 			try
 			{
 				var platformInfo = Eto.Platform.Detect;
-                // Create System Directory List
-                if (platformInfo.IsWinForms || platformInfo.IsWpf)
-                {
+				// Create System Directory List
+				if (platformInfo.IsWinForms || platformInfo.IsWpf)
+				{
 					var _windows_system_drive = System.Environment.GetEnvironmentVariable("SystemDrive");
-                    if (string.IsNullOrEmpty(System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)) == false)
-                    {
-                        // "Program Files"
-                        _Sy_Dir_List_StartsWith[System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)]= "";
-                    }
-                    if (string.IsNullOrEmpty(System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)) == false)
-                    {
-                        // "Program Files(X86)"
-                        _Sy_Dir_List_StartsWith[System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)] = "";
-                    }
-                    if (string.IsNullOrEmpty(System.Environment.GetFolderPath(Environment.SpecialFolder.Windows)) == false)
-                    {
-                        // "Windows"
-                        _Sy_Dir_List_StartsWith[System.Environment.GetFolderPath(Environment.SpecialFolder.Windows)] = "";
-                    }
+					if (string.IsNullOrEmpty(System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)) == false)
+					{
+						// "Program Files"
+						_Sy_Dir_List_StartsWith[System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)] = "";
+					}
+					if (string.IsNullOrEmpty(System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)) == false)
+					{
+						// "Program Files(X86)"
+						_Sy_Dir_List_StartsWith[System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)] = "";
+					}
+					if (string.IsNullOrEmpty(System.Environment.GetFolderPath(Environment.SpecialFolder.Windows)) == false)
+					{
+						// "Windows"
+						_Sy_Dir_List_StartsWith[System.Environment.GetFolderPath(Environment.SpecialFolder.Windows)] = "";
+					}
 					if (string.IsNullOrEmpty(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) == false)
 					{
 						// "Windows"
 						_Sy_Dir_List_StartsWith[System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)] = "";
 					}
-
-					_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive , "ProgamData")] = "";
-                    _Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive ,"$Recycle.Bin")]= "";
-                    // _Sy_Dir_List_StartsWith["Config.Msi"] = ""; This directory is creating during install Windows App. Looks ok to remove after install
-                    // _Sy_Dir_List_StartsWith["ESD"] = ""; Media Creation Working Folder it seems ok to remove
-                    _Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive , "MSOCache")]= ""; // MSOCache should be removed by disk cleanup
-     				_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive, "pagefile.sys")] = "";
+					_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive, "ProgamData")] = "";
+					_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive, "$Recycle.Bin")] = "";
+					// _Sy_Dir_List_StartsWith["Config.Msi"] = ""; This directory is creating during install Windows App. Looks ok to remove after install
+					// _Sy_Dir_List_StartsWith["ESD"] = ""; Media Creation Working Folder it seems ok to remove
+					_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive, "MSOCache")] = ""; // MSOCache should be removed by disk cleanup
+					_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive, "pagefile.sys")] = "";
 					_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive, "hiblid.sys")] = "";
 					_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive, "pagefile.sys")] = "";
-					_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive, "System Volume Information")]= "";
-
-
-
+					_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive, "System Volume Information")] = "";
 				}
-                else
-                {
-                    // Unix System Directories List
-                    _Sy_Dir_List_StartsWith["/bin"] = "";
-                    _Sy_Dir_List_StartsWith["/boot"] = ""; // boot loader
-                    _Sy_Dir_List_StartsWith["/etc"] = "";  // app boot related files
-                    _Sy_Dir_List_StartsWith["/lib"] = ""; // library files
-                    _Sy_Dir_List_StartsWith["/lib32"] = ""; // library files 32-bit
-                    _Sy_Dir_List_StartsWith["/lib64"] = ""; // library files 64-bit
-                    _Sy_Dir_List_StartsWith["/opt"] = ""; // big application is installed here.
-                    _Sy_Dir_List_StartsWith["/proc"] = ""; // system info
-                    _Sy_Dir_List_StartsWith["/sbin"] = ""; // root users command folder
-                    _Sy_Dir_List_StartsWith["/sys"] = ""; // drivers etc.
-                    _Sy_Dir_List_StartsWith["/tmp"] = ""; // temporary app dir
-                    _Sy_Dir_List_StartsWith["/user"] = ""; // system info
-                }
+				else
+				{
+					// Unix System Directories List
+					_Sy_Dir_List_StartsWith["/bin"] = "";
+					_Sy_Dir_List_StartsWith["/boot"] = ""; // boot loader
+					_Sy_Dir_List_StartsWith["/etc"] = "";  // app boot related files
+					_Sy_Dir_List_StartsWith["/lib"] = ""; // library files
+					_Sy_Dir_List_StartsWith["/lib32"] = ""; // library files 32-bit
+					_Sy_Dir_List_StartsWith["/lib64"] = ""; // library files 64-bit
+					_Sy_Dir_List_StartsWith["/opt"] = ""; // big application is installed here.
+					_Sy_Dir_List_StartsWith["/proc"] = ""; // system info
+					_Sy_Dir_List_StartsWith["/sbin"] = ""; // root users command folder
+					_Sy_Dir_List_StartsWith["/sys"] = ""; // drivers etc.
+					_Sy_Dir_List_StartsWith["/tmp"] = ""; // temporary app dir
+					_Sy_Dir_List_StartsWith["/user"] = ""; // system info
+				}
 
             }
             catch
