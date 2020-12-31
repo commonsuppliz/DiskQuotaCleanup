@@ -40,8 +40,12 @@ namespace DiskQuotaCleanup
 		/// Files count has been checked size
 		/// </summary>
 		public static long LookedFileCount;
+        /// <summary>
+        /// List of System Directories you dont want remove. Designed for StartsWith()
+        /// </summary>
+        private Dictionary<string, string> _Sy_Dir_List_StartsWith = new Dictionary<string, string>();
 
-		public MainForm()
+        public MainForm()
 		{
 			Title = "DiskQuotaCleanUp (Eto.Forms)";
 			
@@ -295,6 +299,70 @@ namespace DiskQuotaCleanup
                 }
 
 			}
+			try
+			{
+				var platformInfo = Eto.Platform.Detect;
+                // Create System Directory List
+                if (platformInfo.IsWinForms || platformInfo.IsWpf)
+                {
+					var _windows_system_drive = System.Environment.GetEnvironmentVariable("SystemDrive");
+                    if (string.IsNullOrEmpty(System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)) == false)
+                    {
+                        // "Program Files"
+                        _Sy_Dir_List_StartsWith[System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)]= "";
+                    }
+                    if (string.IsNullOrEmpty(System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)) == false)
+                    {
+                        // "Program Files(X86)"
+                        _Sy_Dir_List_StartsWith[System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)] = "";
+                    }
+                    if (string.IsNullOrEmpty(System.Environment.GetFolderPath(Environment.SpecialFolder.Windows)) == false)
+                    {
+                        // "Windows"
+                        _Sy_Dir_List_StartsWith[System.Environment.GetFolderPath(Environment.SpecialFolder.Windows)] = "";
+                    }
+					if (string.IsNullOrEmpty(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) == false)
+					{
+						// "Windows"
+						_Sy_Dir_List_StartsWith[System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)] = "";
+					}
+
+					_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive , "ProgamData")] = "";
+                    _Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive ,"$Recycle.Bin")]= "";
+                    // _Sy_Dir_List_StartsWith["Config.Msi"] = ""; This directory is creating during install Windows App. Looks ok to remove after install
+                    // _Sy_Dir_List_StartsWith["ESD"] = ""; Media Creation Working Folder it seems ok to remove
+                    _Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive , "MSOCache")]= ""; // MSOCache should be removed by disk cleanup
+     				_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive, "pagefile.sys")] = "";
+					_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive, "hiblid.sys")] = "";
+					_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive, "pagefile.sys")] = "";
+					_Sy_Dir_List_StartsWith[Path.Combine(_windows_system_drive, "System Volume Information")]= "";
+
+
+
+				}
+                else
+                {
+                    // Unix System Directories List
+                    _Sy_Dir_List_StartsWith["/bin"] = "";
+                    _Sy_Dir_List_StartsWith["/boot"] = ""; // boot loader
+                    _Sy_Dir_List_StartsWith["/etc"] = "";  // app boot related files
+                    _Sy_Dir_List_StartsWith["/lib"] = ""; // library files
+                    _Sy_Dir_List_StartsWith["/lib32"] = ""; // library files 32-bit
+                    _Sy_Dir_List_StartsWith["/lib64"] = ""; // library files 64-bit
+                    _Sy_Dir_List_StartsWith["/opt"] = ""; // big application is installed here.
+                    _Sy_Dir_List_StartsWith["/proc"] = ""; // system info
+                    _Sy_Dir_List_StartsWith["/sbin"] = ""; // root users command folder
+                    _Sy_Dir_List_StartsWith["/sys"] = ""; // drivers etc.
+                    _Sy_Dir_List_StartsWith["/tmp"] = ""; // temporary app dir
+                    _Sy_Dir_List_StartsWith["/user"] = ""; // system info
+                }
+
+            }
+            catch
+			{
+				System.Diagnostics.Debug.WriteLine("Sys dir list Error");
+			}
+
 		}
 		/// <summary>
 		/// Test Functions
@@ -332,9 +400,21 @@ namespace DiskQuotaCleanup
 						}
 					}
 				}
-				if(string.IsNullOrEmpty(strDir) == false)
+                if (string.IsNullOrEmpty(strDir) == false)
                 {
-					var result = MessageBox.Show(string.Format("Remove {0}? \r\n\r\n{1}",  strDir, strDirInfo) ,  strDir, MessageBoxButtons.OKCancel, MessageBoxType.Warning, MessageBoxDefaultButton.OK);
+                    // Confirm Deleting Dir is not in _SysDirList
+                    foreach (var s in _Sy_Dir_List_StartsWith.Keys)
+                    {
+                        if (strDir.ToLower().StartsWith(s.ToLower()))
+                        {
+                            MessageBox.Show(string.Format("You can not remove System Directory\r\n\r\nPlease use System Uninstall Option if possible.", strDir), MessageBoxType.Warning);
+                            return;
+
+                        }
+                    }
+                
+
+                var result = MessageBox.Show(string.Format("Remove {0}? \r\n\r\n{1}",  strDir, strDirInfo) ,  strDir, MessageBoxButtons.OKCancel, MessageBoxType.Warning, MessageBoxDefaultButton.OK);
 					if(result== DialogResult.Ok)
                     {
 						System.IO.Directory.Delete(strDir, true);
