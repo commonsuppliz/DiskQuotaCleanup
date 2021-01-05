@@ -54,7 +54,7 @@ namespace DiskQuotaCleanup
             {
 				if(arg.StartsWith("-log"))
                 {
-					DumpRuntimeInfo();
+					DumpRuntimeInfo(false);
                 }
             }
 #else
@@ -925,26 +925,37 @@ namespace DiskQuotaCleanup
 		/// Logs all loaded modules information
 		/// </summary>
 		public static void DumpRuntimeInfo()
+		{
+			DumpRuntimeInfo(false);
+		}
+		/// <summary>
+		/// Logs all loaded modules information
+		/// </summary>
+		public static void DumpRuntimeInfo(bool isExplicit)
         {
-			LogInfo("=========================== Runtime Info ===========================");
-			LogInfo($"CLR Version: {System.Environment.Version}");
-			LogInfo($"OSVersion: {System.Environment.OSVersion}");
-			LogInfo($"Current Directory: {System.Environment.CurrentDirectory}");
-			LogInfo($"Eto Platform: {Application.Instance.Platform}");
-			LogInfo("=========================== Loaded Assemblies =======================");
+			LogInfo("=========================== Runtime Info ===========================", isExplicit);
+			LogInfo($"CLR Version: {System.Environment.Version}", isExplicit);
+			LogInfo($"OSVersion: {System.Environment.OSVersion}", isExplicit);
+			LogInfo($"Current Directory: {System.Environment.CurrentDirectory}", isExplicit);
+			LogInfo($"Eto Platform: {Application.Instance.Platform}", isExplicit);
+			LogInfo("=========================== Loaded Assemblies =======================", isExplicit);
 			foreach (var asm in System.AppDomain.CurrentDomain.GetAssemblies())
             {
-				LogInfo($"{asm}");
+				LogInfo($"{asm}", isExplicit);
             }
-			LogInfo("=====================================================================");
+			LogInfo("=====================================================================", isExplicit);
 		}
 		/// <summary>
 		/// Logs to Debugger
 		/// </summary>
 		/// <param name="str"></param>
-		public static void LogInfo(string str)
+		public static void LogInfo(string str, bool isExplicit)
         {
-			System.Diagnostics.Debug.WriteLine(str);
+			if (isExplicit == false)
+				System.Diagnostics.Debug.WriteLine(str);
+			else
+				System.Console.WriteLine(str);
+			
         }
 	}
 
