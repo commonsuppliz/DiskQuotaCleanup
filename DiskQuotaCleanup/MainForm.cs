@@ -44,9 +44,29 @@ namespace DiskQuotaCleanup
         /// List of System Directories you dont want remove. Designed for StartsWith()
         /// </summary>
         private Dictionary<string, string> _Sy_Dir_List_StartsWith = new Dictionary<string, string>();
+		public static System.Text.StringBuilder _sbLog = new System.Text.StringBuilder();
 
         public MainForm()
 		{
+			// Display Runtime & Loaded Modules info
+#if DEBUG
+			foreach(var arg in System.Environment.GetCommandLineArgs())
+            {
+				if(arg.StartsWith("-log"))
+                {
+					DumpRuntimeInfo();
+                }
+            }
+#else
+			foreach (var arg in System.Environment.GetCommandLineArgs())
+            {
+				if(arg.StartsWith("-log"))
+                {
+					DumpRuntimeInfo();
+                }
+            }
+#endif
+
 			Title = "DiskQuotaCleanUp (Eto.Forms)";
 			
 			ClientSize = new Size(1000, 600);
@@ -901,6 +921,31 @@ namespace DiskQuotaCleanup
 				MessageBox.Show(ex.Message + "\r\nRow: " + rowPos.ToString());
 			}
 		}
+		/// <summary>
+		/// Logs all loaded modules information
+		/// </summary>
+		public static void DumpRuntimeInfo()
+        {
+			LogInfo("=========================== Runtime Info ===========================");
+			LogInfo($"CLR Version: {System.Environment.Version}");
+			LogInfo($"OSVersion: {System.Environment.OSVersion}");
+			LogInfo($"Current Directory: {System.Environment.CurrentDirectory}");
+			LogInfo($"Eto Platform: {Application.Instance.Platform}");
+			LogInfo("=========================== Loaded Assemblies =======================");
+			foreach (var asm in System.AppDomain.CurrentDomain.GetAssemblies())
+            {
+				LogInfo($"{asm}");
+            }
+			LogInfo("=====================================================================");
+		}
+		/// <summary>
+		/// Logs to Debugger
+		/// </summary>
+		/// <param name="str"></param>
+		public static void LogInfo(string str)
+        {
+			System.Diagnostics.Debug.WriteLine(str);
+        }
 	}
 
 

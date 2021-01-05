@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DiskQuotaCleanup.Wpf": {
+      "commandName": "Project",
+      "commandLineArgs": "-log"
+    }
+  }
+}
