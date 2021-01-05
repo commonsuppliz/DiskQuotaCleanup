@@ -677,7 +677,7 @@ namespace DiskQuotaCleanup
             base.OnLoad(e);
         }
 
-        private async void CmdSelectFolder_Executed(object sender, EventArgs e)
+        private void CmdSelectFolder_Executed(object sender, EventArgs e)
 		{
 #if DEBUG
 			if (sender is Command)
@@ -795,7 +795,7 @@ namespace DiskQuotaCleanup
 				}
 			}catch(Exception ex)
             {
-
+				System.Console.WriteLine(ex.Message.ToString());
             }
 
 			try
