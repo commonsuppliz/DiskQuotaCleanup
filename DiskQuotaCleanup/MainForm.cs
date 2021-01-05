@@ -480,8 +480,19 @@ namespace DiskQuotaCleanup
 					return new Bitmap(streamBitmap);
 				}
 			}
-			catch { }
-			return null;
+			catch (Exception ex)
+			{
+				System.Console.WriteLine("Eror: Generating Bitmap from Resource String");
+				System.Console.WriteLine(ex.ToString());
+				System.Console.WriteLine(ex.StackTrace.ToString());
+			}
+			System.Console.WriteLine("Generationg adhoc images");
+			Bitmap bmpAdhoc = new Bitmap(16, 16, PixelFormat.Format32bppRgba);
+			Graphics grc = new Graphics(bmpAdhoc);
+			grc.Clear(Colors.White);
+			grc.Dispose();
+			return bmpAdhoc;
+
 		}
 		public static string FixBase64ForImage(string Image)
 		{
