@@ -26,7 +26,7 @@ DiskQuotaCleanup can
 
 # Enviornment
 
-- Windows 20 (20H2)
+- Windows 10 (20H2)
 - MacOS OS X Mojave (ver.10.14.4)
 - Ubuntu Desktop 20.10
 
